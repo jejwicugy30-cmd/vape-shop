@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ Панель - Vape Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-body">
+    <div id="admin-container">
+        <div class="admin-sidebar">
+            <div class="admin-logo">Admin Panel</div>
+            <nav class="admin-nav">
+                <div class="nav-item-admin active" onclick="switchAdminTab('products')">📦 Товары</div>
+                <div class="nav-item-admin" onclick="switchAdminTab('chats')">💬 Чаты</div>
+                <div class="nav-item-admin" onclick="switchAdminTab('users')">👥 Пользователи</div>
+            </nav>
+        </div>
+
+        <div class="admin-main">
+            <div id="products-tab" class="admin-tab active">
+                <div class="tab-header">
+                    <h2>Управление товарами</h2>
+                    <button onclick="openAddProductModal()" class="btn-primary">+ Добавить товар</button>
+                </div>
+                <div id="products-list" class="admin-products-list"></div>
+            </div>
+
+            <div id="chats-tab" class="admin-tab">
+                <div class="tab-header">
+                    <h2>Чаты с пользователями</h2>
+                </div>
+                <div class="admin-chats-container">
+                    <div id="chats-list" class="chats-list"></div>
+                    <div id="chat-window" class="chat-window">
+                        <div class="chat-window-empty">Выберите чат</div>
+                        <div id="admin-chat-messages" class="admin-chat-messages" style="display:none;"></div>
+                        <div id="admin-chat-input-area" class="admin-chat-input-area" style="display:none;">
+                            <input type="text" id="admin-chat-input" placeholder="Напишите ответ...">
+                            <button onclick="sendAdminChatMessage()" class="send-btn">Отправить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="users-tab" class="admin-tab">
+                <div class="tab-header">
+                    <h2>Список пользователей</h2>
+                </div>
+                <div id="users-list" class="admin-users-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Добавить товар</h3>
+                <button onclick="closeProductModal()" class="close-btn">&times;</button>
+            </div>
+            <form id="product-form" class="product-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Название</label>
+                        <input type="text" id="product-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Цена (₽)</label>
+                        <input type="number" id="product-price" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Категория</label>
+                        <select id="product-category" required>
+                            <option value="pod">Pod системы</option>
+                            <option value="liquid">Жидкости</option>
+                            <option value="accessories">Аксессуары</option>
+                            <option value="disposable">Одноразовые</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Количество</label>
+                        <input type="number" id="product-stock" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea id="product-description" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Эмодзи</label>
+                    <input type="text" id="product-image" placeholder="🎯" maxlength="2">
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">Сохранить</button>
+                    <button type="button" onclick="closeProductModal()" class="btn-secondary">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
