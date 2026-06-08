@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vape Shop - Лучший выбор вейпов</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div id="app-container">
+        <!-- ГЛАВНАЯ СТРАНИЦА -->
+        <div id="home-page" class="page active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>VAPE SHOP</h1>
+                    <p>Лучший выбор вейпов и аксессуаров</p>
+                    <button class="hero-btn" onclick="goToTab('catalog')">НАЧАТЬ ПОКУПКИ</button>
+                </div>
+                <div class="hero-glow"></div>
+            </div>
+        </div>
+
+        <!-- КАТАЛОГ -->
+        <div id="catalog-page" class="page">
+            <div class="catalog-header">
+                <h2>Каталог товаров</h2>
+                <div class="categories-scroll">
+                    <div class="category-btn active" onclick="filterByCategory('all')">Все</div>
+                    <div class="category-btn" onclick="filterByCategory('pod')">Pod системы</div>
+                    <div class="category-btn" onclick="filterByCategory('liquid')">Жидкости</div>
+                    <div class="category-btn" onclick="filterByCategory('accessories')">Аксессуары</div>
+                    <div class="category-btn" onclick="filterByCategory('disposable')">Одноразовые</div>
+                </div>
+            </div>
+            <div id="products-container" class="products-grid">
+                <!-- Товары загружаются сюда -->
+            </div>
+        </div>
+
+        <!-- КОРЗИНА -->
+        <div id="cart-page" class="page">
+            <h2>Корзина</h2>
+            <div id="cart-items-container" class="cart-items">
+                <!-- Товары в корзине загружаются сюда -->
+            </div>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Сумма:</span>
+                    <span id="total-sum">0 ₽</span>
+                </div>
+                <div class="summary-row">
+                    <span>Товаров:</span>
+                    <span id="total-items">0</span>
+                </div>
+                <button class="checkout-btn" onclick="goToCheckout()">Перейти к оплате</button>
+                <button class="continue-shopping-btn" onclick="goToTab('catalog')">Продолжить покупки</button>
+            </div>
+        </div>
+
+        <!-- ОФОРМЛЕНИЕ ЗАКАЗА -->
+        <div id="checkout-page" class="page">
+            <h2>Оформление заказа</h2>
+            <form id="checkout-form" class="checkout-form">
+                <div class="form-group">
+                    <label>Как вас зовут?</label>
+                    <input type="text" id="customer-name" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <label>Номер телефона</label>
+                    <input type="tel" id="customer-phone" placeholder="+7 (___) ___-__-__" required>
+                </div>
+                <div class="form-group">
+                    <label>Способ получения</label>
+                    <select id="delivery-method" onchange="updateDeliveryPrice()">
+                        <option value="pickup">Самовывоз</option>
+                        <option value="delivery">Доставка (договорная)</option>
+                    </select>
+                </div>
+
+                <div class="order-summary">
+                    <h3>Итоговая сумма</h3>
+                    <div id="order-items-list" class="order-items-list">
+                        <!-- Товары загружаются сюда -->
+                    </div>
+                    <div class="summary-row">
+                        <span>Товары:</span>
+                        <span id="checkout-subtotal">0 ₽</span>
+                    </div>
+                    <div id="delivery-cost-row" class="summary-row" style="display:none;">
+                        <span>Доставка:</span>
+                        <span>договорная</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Итого:</span>
+                        <span id="checkout-total">0 ₽</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-order-btn">Подтвердить заказ</button>
+                <button type="button" class="back-btn" onclick="goToTab('cart')">Назад в корзину</button>
+            </form>
+        </div>
+
+        <!-- ЧАТ С МЕНЕДЖЕРОМ -->
+        <div id="chat-page" class="page">
+            <h2>Связь с менеджером</h2>
+            <div id="chat-messages" class="chat-messages">
+                <!-- Сообщения загружаются сюда -->
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Напишите сообщение..." maxlength="500">
+                <button onclick="sendChatMessage()" class="send-btn">Отправить</button>
+            </div>
+        </div>
+
+        <!-- НИЖНЯЯ НАВИГАЦИЯ -->
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="goToTab('catalog')">
+                <div class="nav-icon">📦</div>
+                <div class="nav-label">Каталог</div>
+            </div>
+            <div class="nav-item" onclick="goToTab('chat')">
+                <div class="nav-icon">💬</div>
+                <div class="nav-label">Чат</div>
+            </div>
+            <div class="nav-item" onclick="goToTab('cart')">
+                <div class="nav-icon">🛒</div>
+                <div class="nav-label">Корзина</div>
+                <div id="cart-badge" class="cart-badge" style="display:none;">0</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
